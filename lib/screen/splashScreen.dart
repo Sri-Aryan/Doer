@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:task/screen/loginScreen.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:task/screen/loginScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -52,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: const Color(0xFF1565C0),
       body: Center(
         child: AnimatedBuilder(
           animation: _controller,
@@ -65,10 +66,39 @@ class _SplashScreenState extends State<SplashScreen>
               ),
             );
           },
-          child: Image.asset(
-            "assets/images/todo.png",
-            width: 150,
-            height: 150,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(28),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Image.asset("assets/images/todo.png"),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                "Taskify",
+                style: GoogleFonts.poppins(
+                  fontSize: 38,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 2,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                "Get things done.",
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: Colors.white60,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ],
           ),
         ),
       ),
