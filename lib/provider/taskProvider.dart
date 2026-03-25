@@ -30,8 +30,20 @@ final tasksStreamProvider = StreamProvider<List<Task>>((ref) {
       filtered = filtered.where((t) => !t.isCompleted).toList();
     }
 
-    // Always sort by due date
-    filtered.sort((a, b) => a.dueDate.compareTo(b.dueDate));
+    // Sort by custom sortOrder if any task has one set, else by due date
+    final hasCustomOrder = filtered.any((t) => t.sortOrder != null);
+    if (hasCustomOrder) {
+      filtered.sort((a, b) {
+        if (a.sortOrder != null && b.sortOrder != null) {
+          return a.sortOrder!.compareTo(b.sortOrder!);
+        }
+        if (a.sortOrder != null) return -1;
+        if (b.sortOrder != null) return 1;
+        return a.dueDate.compareTo(b.dueDate);
+      });
+    } else {
+      filtered.sort((a, b) => a.dueDate.compareTo(b.dueDate));
+    }
 
     return filtered;
   });
