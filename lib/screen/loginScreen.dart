@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(
                   child: Container(
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 32),
 
                 Text(
-                  "Welcome back",
+                  "Welcome",
                   style: GoogleFonts.poppins(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: const Color(0xFF5A7184),
                   ),
                 ),
-                const SizedBox(height: 36),
+                const SizedBox(height: 196),
 
                 TextField(
                   controller: _emailController,
