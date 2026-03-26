@@ -1,4 +1,4 @@
-# Doer — Task Manager App
+# Taskify — Task Manager App
 
 A clean, feature-rich Flutter task management app backed by Firebase. Doer helps you stay organized with prioritized tasks, recurring schedules, task dependencies, and a weekly progress overview.
 
