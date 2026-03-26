@@ -53,7 +53,6 @@ class Task {
     );
   }
 
-  // Map for Firestore
   Map<String, dynamic> toMap() {
     return {
       'title': title,
@@ -67,7 +66,6 @@ class Task {
     };
   }
 
-  // Convert Firestore -> Task
   factory Task.fromMap(String id, Map<String, dynamic> map) {
     return Task(
       id: id,

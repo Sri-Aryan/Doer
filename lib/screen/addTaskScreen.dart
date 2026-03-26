@@ -119,7 +119,6 @@ class _AddEditTaskScreenState extends ConsumerState<AddEditTaskScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Due date
               InkWell(
                 onTap: () async {
                   final picked = await showDatePicker(
@@ -169,7 +168,6 @@ class _AddEditTaskScreenState extends ConsumerState<AddEditTaskScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Prerequisite dropdown
               tasksAsync.when(
                 data: (allTasks) {
                   final otherTasks = allTasks

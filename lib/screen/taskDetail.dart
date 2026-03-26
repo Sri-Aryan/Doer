@@ -43,7 +43,6 @@ class TaskDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Main card
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -61,7 +60,6 @@ class TaskDetailScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Header with status badge
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: Row(
@@ -106,7 +104,6 @@ class TaskDetailScreen extends StatelessWidget {
                   const Divider(color: Color(0xFFEEF3FF), height: 1),
                   const SizedBox(height: 16),
 
-                  // Detail rows
                   _DetailRow(
                     icon: Icons.notes_rounded,
                     label: "Description",
@@ -181,7 +178,6 @@ class TaskDetailScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            // Close button
             SizedBox(
               width: double.infinity,
               height: 52,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// ── Mock data ────────────────────────────────────────────────────────────────
-
 class _DayData {
   final String label;
   final int planned;
@@ -19,13 +17,10 @@ const _weekData = [
   _DayData('Sa', planned: 4, done: 2),
 ];
 
-// weekday: Mon=1 … Sat=6  →  index 0…5
 int get _todayIndex {
-  final wd = DateTime.now().weekday; // 1=Mon … 7=Sun
-  return (wd <= 6) ? wd - 1 : -1; // -1 on Sunday (no column)
+  final wd = DateTime.now().weekday;
+  return (wd <= 6) ? wd - 1 : -1;
 }
-
-// ── Widget ───────────────────────────────────────────────────────────────────
 
 class WeeklyProgressCard extends StatefulWidget {
   const WeeklyProgressCard({super.key});
@@ -38,7 +33,6 @@ class _WeeklyProgressCardState extends State<WeeklyProgressCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
 
-  // One staggered animation per day column
   late final List<Animation<double>> _barAnimations;
 
   static const _maxBarHeight = 72.0;
@@ -52,7 +46,6 @@ class _WeeklyProgressCardState extends State<WeeklyProgressCard>
       duration: const Duration(milliseconds: 1100),
     );
 
-    // Stagger: each column starts 80 ms after the previous one
     _barAnimations = List.generate(_totalDays, (i) {
       final start = i * 0.10;
       final end = (start + 0.55).clamp(0.0, 1.0);
@@ -95,7 +88,6 @@ class _WeeklyProgressCardState extends State<WeeklyProgressCard>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Header ────────────────────────────────────────────────────
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -129,7 +121,6 @@ class _WeeklyProgressCardState extends State<WeeklyProgressCard>
 
             const SizedBox(height: 20),
 
-            // ── Bar chart ─────────────────────────────────────────────────
             AnimatedBuilder(
               animation: _ctrl,
               builder: (context, _) {
@@ -159,7 +150,6 @@ class _WeeklyProgressCardState extends State<WeeklyProgressCard>
 
             const SizedBox(height: 16),
 
-            // ── Legend ────────────────────────────────────────────────────
             Row(
               children: [
                 _LegendDot(
@@ -175,8 +165,6 @@ class _WeeklyProgressCardState extends State<WeeklyProgressCard>
     );
   }
 }
-
-// ── Day column ───────────────────────────────────────────────────────────────
 
 class _DayColumn extends StatelessWidget {
   final String label;
@@ -196,7 +184,6 @@ class _DayColumn extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Two bars side by side
         SizedBox(
           height: 72,
           child: Align(
@@ -205,14 +192,12 @@ class _DayColumn extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Planned bar (gray)
                 _Bar(
                   height: plannedHeight,
                   color: const Color(0xFFCDD5DF),
                   isToday: false,
                 ),
                 const SizedBox(width: 3),
-                // Completed bar (blue)
                 _Bar(
                   height: doneHeight,
                   color: const Color(0xFF2196F3),
@@ -225,7 +210,6 @@ class _DayColumn extends StatelessWidget {
 
         const SizedBox(height: 8),
 
-        // Day label
         Text(
           label,
           style: GoogleFonts.poppins(
@@ -273,8 +257,6 @@ class _Bar extends StatelessWidget {
     );
   }
 }
-
-// ── Legend dot ───────────────────────────────────────────────────────────────
 
 class _LegendDot extends StatelessWidget {
   final Color color;

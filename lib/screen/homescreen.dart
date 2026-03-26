@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../provider/taskProvider.dart';
 import 'addTaskScreen.dart';
 import '../repo/task.dart';
@@ -53,7 +51,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       body: Column(
         children: [
-          // Floating search bar
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Material(
@@ -81,7 +78,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
 
-          // Task list (chart scrolls with it)
           Expanded(
             child: tasksAsync.when(
               data: (tasks) {
@@ -95,13 +91,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 final taskService = ref.read(taskServiceProvider);
                 final today = DateTime.now();
 
-                // Build merged list:
-                // [chart, header?, ...todayTasks, header?, ...otherTasks]
                 final items = <_ListItem>[];
-                items.add(const _ListItem(isChart: true)); // always first
+                items.add(const _ListItem(isChart: true));
 
                 if (filteredTasks.isEmpty) {
-                  // Still show chart; empty state goes after it
                   items.add(const _ListItem(isEmpty: true));
                 } else {
                   final todayTasks = filteredTasks.where((t) {
@@ -131,11 +124,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                 return ReorderableListView.builder(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-                  // Drag handles are added manually on task cards only
                   buildDefaultDragHandles: false,
                   itemCount: items.length,
                   onReorder: (oldIndex, newIndex) {
-                    // Only task items are draggable
                     if (!items[oldIndex].isTask) return;
                     if (newIndex > oldIndex) newIndex--;
                     if (newIndex < items.length &&
@@ -190,7 +181,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       );
                     }
 
-                    // Task card — wrapped with drag listener
                     return ReorderableDelayedDragStartListener(
                       key: ValueKey(item.task!.id),
                       index: index,
@@ -306,8 +296,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 }
-
-// ── helpers ──────────────────────────────────────────────────────────────────
 
 class _ListItem {
   final String? header;

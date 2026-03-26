@@ -29,16 +29,11 @@ class TaskService {
     await _tasks.doc(task.id).update({'isCompleted': !task.isCompleted});
   }
 
-  /// Marks [task] as complete and, if it is recurring, atomically creates
-  /// the next occurrence in the same Firestore batch so both writes land
-  /// together and trigger a single stream update.
   Future<void> markComplete(Task task) async {
     final batch = FirebaseFirestore.instance.batch();
 
-    // 1. Mark original task done
     batch.update(_tasks.doc(task.id), {'isCompleted': true});
 
-    // 2. Create next occurrence for recurring tasks
     if (task.recurringType != RecurringType.none) {
       final days = task.recurringType == RecurringType.daily ? 1 : 7;
       final nextTask = task.copyWith(
